@@ -9,11 +9,12 @@ def index(request):
     return render(request, "index.html")
 
 def wall(request):
-    if 'first_name' in request.session:
+    if 'id' in request.session:
         post_wall = apps.get_model('wall.Message').objects.all()
         if post_wall:
             context = {
-                'wall_messages': reversed(post_wall)
+                'wall_messages': reversed(post_wall),
+                'user': User.objects.get(id=request.session['id'])
             }
         return render(request, 'wall/index.html', context)
     else:
@@ -31,7 +32,7 @@ def add_user(request):
                 request.POST["password"].encode(), bcrypt.gensalt()
             ).decode()
         )
-        request.session['first_name'] = User.objects.last().first_name
+        request.session['id'] = User.objects.last().id
         return redirect('wall')
 
 def login(request):
@@ -45,8 +46,7 @@ def login(request):
         if user:
             logged_user = user[0]
             if bcrypt.checkpw(request.POST['pw_login'].encode(), logged_user.password.encode()):
-                request.session['first_name'] = logged_user.first_name
-                request.session['user_id'] = logged_user.id
+                request.session['id'] = logged_user.id
                 return redirect('wall')
             else:
                 messages.error(request, "Incorrect password.", extra_tags="login")

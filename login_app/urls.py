@@ -5,5 +5,5 @@ urlpatterns = [
     path('add-user/', views.add_user),
     path('login/', views.login),
     path('logout/', views.logout),
-    path('wall/', views.wall)
+    path('wall/', views.wall, name="wall")
 ]
