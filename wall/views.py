@@ -3,8 +3,8 @@ from .models import Message, Comment
 from django.apps import apps
 
 # Create your views here.
-def index(request):
-    return render(request, 'wall/index.html')
+# def index(request):
+#     return render(request, 'wall/index.html')
 
 def post_message(request):
     logged_user = apps.get_model('login_app.User').objects.filter(id__in=request.POST['user_id'])
