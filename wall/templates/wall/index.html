@@ -19,7 +19,7 @@
                 <form action="post-message/" method="post">
                     {% csrf_token %}
                     <p><textarea name="message_post" rows="3" cols="100" required></textarea></p>
-                    <input type="hidden" name="user_id" value="{{request.session.user_id}}">
+                    <input type="hidden" name="user_id" value="{{request.session.id}}">
                     <button type="submit">Post a message</button>
                 </form>
             </div>
@@ -42,7 +42,7 @@
                                         <form action="comment/" method="post">
                                             {% csrf_token %}
                                             <p><textarea name="comment" rows="2" cols="100 required"></textarea></p>
-                                            <input type="hidden" name="user_comment_id" value="{{request.session.user_id}}">
+                                            <input type="hidden" name="user_comment_id" value="{{request.session.id}}">
                                             <input type="hidden" name="message_id" value="{{wall_message.id}}">
                                             <button type="submit">Post a comment</button>
                                         </form>
