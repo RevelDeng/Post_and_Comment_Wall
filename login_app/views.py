@@ -16,6 +16,10 @@ def wall(request):
                 'wall_messages': reversed(post_wall),
                 'user': User.objects.get(id=request.session['id'])
             }
+        else:
+            context = {
+                'user': User.objects.get(id=request.session['id'])
+            }
         return render(request, 'wall/index.html', context)
     else:
         return redirect('index')
